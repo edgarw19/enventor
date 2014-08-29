@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var eventItem = new Schema({
     title: String,
+    summary: String,
     description: String,
     attendeeNumber: Number,
     repNumber: Number,
@@ -10,7 +11,8 @@ var eventItem = new Schema({
     tags: [],
     type: String,
     picture: String,
-    creator_id: String
+    creator_id: String,
+    date: Date
     
 });
 

@@ -7,8 +7,9 @@ var DaysEnum = Object.freeze({"monday":1, "tuesday":2, "wednesday":3});
 var User = new Schema({
 	username: String,
 	password: String,
-	prof_type: Boolean,
-	categories : []
+	prof_pic: String,
+	categories : [],
+
 	
 	}
 );
