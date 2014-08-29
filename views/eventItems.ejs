@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script src="/javascripts/bower_components/jquery/dist/jquery.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="/javascripts/bower_components/underscore/underscore.js"></script>
+	<script src="/javascripts/bower_components/isotope/jquery.isotope.js"></script>
+	<script src="/javascripts/bower_components/backbone/backbone.js"></script>
+	<script src="/javascripts/bower_components/handlebars/handlebars.js"></script>
+	<script src="/javascripts/lib/client.js"></script>
+	<script src="/javascripts/lib/init.js"></script>
+	<script id="eventTemplate" type="text/x-handlebars">
+		<div><h1>{{description}}</h1>
+			<p>{{description}}<p>
+			</div>
+
+		</script>
+		<script type="text/javascript">
+			$("document").ready(function(){
+				$(".event").click(function(){
+					$('#myModal').modal('toggle')
+				});
+				$("#addEvent").click(function(){
+					$('#add-item-modal').modal('toggle')
+				});
+				var $container = $('#initialContent').isotope({
+					itemSelector: '.event',
+					layoutMode: 'masonry',
+					masonry: {
+						columnWidth: 110
+					},
+					cellsByRow: {
+						columnWidth: 220,
+						rowHeight: 220
+					},
+					masonryHorizontal: {
+						rowHeight: 110
+					},
+					cellsByColumn: {
+						columnWidth: 220,
+						rowHeight: 220
+					}
+				});
+			});
+		</script>
+
+
+		<style type="text/css">
+			#startingdata
+			{
+				display:none;
+			}
+
+			/* clearfix */
+			.isotope:before,
+			.isotope:after {
+				content: " ";
+				display: table;
+			}
+
+			.isotope:after {
+				clear: both;
+			}
+
+			.symbol {
+				position: absolute;
+				margin-left: 2px;
+				margin-bottom: 5px;
+				font-size: 42px;
+				font-weight: bold;
+				color: white;
+			}
+
+			.symbol {
+				filter: gray; /* IE6-9 */
+				-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+				background:orange;
+			}
+
+			.symbol:hover {
+				filter: none;
+				-webkit-filter: grayscale(0%);
+			}
+
+			.event.width2 { width: 200px; }
+			.event.height2 { height: 200px; }
+
+		</style>
+	</head>
+
+
+	<body>
+		<div id="startingdata">
+			<%= events %>
+		</div>
+		<div> Testing this out </div>
+
+		<div id="initialContent" class="isotope">
+
+		</div>
+
+		<!-- Button trigger modal -->
+		<button class="btn btn-primary btn-lg" id="launchModal">
+			Launch demo modal
+		</button>
+
+		<button class="btn btn-primary btn-lg" id="addEvent">
+			Add Event
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Add Item modal -->
+		<div id="add-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<h3 class="modal-header add-item-modal-header">Add New Item</h4>
+						<form role="form" id="add-item-modal-form-container">
+							<div class="modal-body">
+								<div class="add-item-modal-form form-group">
+									<label class="add-item-modal-form-label" for="add-item-modal-form-title">Item Title</label>
+									<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title">
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-description">Item Description</label>
+									<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description"></textarea>
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Item Tags</label>
+									<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors, Eating">
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-participants">Minimum Number of Participants</label>
+									<input type="number" class="form-control add-item-modal-form-input" id="add-item-modal-form-participants" placeholder="10">
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-cost">Cost Per Person</label>
+									<div class="input-group add-item-modal-form-input">
+										<div class="input-group-addon">$</div>
+										<input type="number" class="form-control " id="add-item-modal-form-cost" placeholder="99.99">
+									</div>
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-reputation">Reputation</label>
+									<input type="number" class="form-control add-item-modal-form-input" id="add-item-modal-form-reputation" placeholder="100">
+
+									<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">End Date</label>
+									<input type="number" class="form-control add-item-modal-form-input" id="add-item-modal-form-enddate popupDatepicker" placeholder="100">
+
+									<p>A popup datepicker <input type="text" id="popupDatepicker" ></p>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+								<button type="button" class="add-item-modal-form-submit-btn btn btn-primary">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</body>
+
+		</html>
