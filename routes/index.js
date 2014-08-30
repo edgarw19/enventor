@@ -31,6 +31,22 @@ router.get('/eventList', function (req, res) {
 
 });
 
+router.post('/addEvent', function (req, res) {
+  console.log(req.body.title);
+  console.log(req.body.description);
+  var newItem = new eventItem();
+  newItem.title = req.body.title;
+  newItem.description = req.body.description;
+  newItem.save(function(err) {
+        if (err)
+          console.log('error on update');
+        else
+          console.log('successful update');
+      });
+  res.redirect('/eventItems');
+
+});
+
 
 router.get('/', function (req, res) {
   res.render('index', { user : req.user, title: "blah" });

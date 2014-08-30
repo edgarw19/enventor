@@ -3,11 +3,11 @@ var Schema = mongoose.Schema;
 
 var eventItem = new Schema({
     title: String,
-    summary: String,
     description: String,
     attendeeNumber: Number,
     repNumber: Number,
     attendeePhotos: [],
+    attendeeNames: [],
     tags: [],
     type: String,
     picture: String,
@@ -15,5 +15,4 @@ var eventItem = new Schema({
     date: Date
     
 });
-
 module.exports = mongoose.model('eventItem', eventItem);

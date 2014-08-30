@@ -1,0 +1,38 @@
+#startingdata
+{
+	display:none;
+}
+
+/* clearfix */
+.isotope:before,
+.isotope:after {
+content: " ";
+display: table;
+}
+
+.isotope:after {
+clear: both;
+}
+
+.symbol {
+position: absolute;
+margin-left: 2px;
+margin-bottom: 5px;
+font-size: 42px;
+font-weight: bold;
+color: white;
+}
+
+.symbol {
+filter: gray; /* IE6-9 */
+-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+background:orange;
+}
+
+.symbol:hover {
+filter: none;
+-webkit-filter: grayscale(0%);
+}
+
+.event.width2 { width: 300px; }
+.event.height2 { height: 300px; }
