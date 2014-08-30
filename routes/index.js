@@ -33,10 +33,11 @@ router.get('/eventList', function (req, res) {
 
 router.post('/addEvent', function (req, res) {
   var newItem = new eventItem();
-  newItem.title = req.body.modal-title;
-  newItem.description = req.body.modal-description;
 
-  console.log(req.body.modal-option);
+  console.log(req.body.modal_title);
+  console.log(req.body.modal_description);
+
+  console.log(req.body.modal_type);
   newItem.save(function(err) {
         if (err)
           console.log('error on update');

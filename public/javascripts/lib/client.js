@@ -36,15 +36,29 @@ var eventCollectionView = Backbone.View.extend({
 });
 
 var AppRouter = Backbone.Router.extend({
+	initialize: function(){
+		this._setupCollection();
+	},
 	routes: {
-		"*eventItems" : "eventItems"
+		"*eventItems" : "eventItems",
+		"eventItem/:id": "singleBook"
+	},
+	_setupCollection: function(){
+		if(this.collection) return;
+		var data = $("#startingdata").html();
+		this.collection = new eventCollection(JSON.parse(data));
+	},
+	_renderView: function(view){
+		$("#initialContent").html(view.render().el);
 	},
 	eventItems : function() {
-		var data = $("#startingdata").html();
-		var collection = new eventCollection(JSON.parse(data));
+
 		//collection.fetch({ reset: true}); maybe try without resetting
-		var view = new eventCollectionView({collection: collection});
-		$("#initialContent").html(view.render().el);
+		var view = new eventCollectionView({collection: this.collection});
+		this._renderView(view);
+	},
+	singleBook: function(id){
+
 	}
 
 });
