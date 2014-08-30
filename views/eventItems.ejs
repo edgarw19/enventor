@@ -13,7 +13,8 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/stylesheets/eventItems.css">
-
+	<link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui.css"/>
+	<link rel="stylesheet" href="/resources/demos/style.css">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="/javascripts/bower_components/underscore/underscore.js"></script>
@@ -23,6 +24,8 @@
 	<script src="/javascripts/bower_components/bootstrap-tagsinput.js"></script>
 	<script src="/javascripts/lib/client.js"></script>
 	<script src="/javascripts/lib/init.js"></script>
+	<script src="javascripts/jquery-ui.js"></script>
+
 	<script id="eventTemplate" type="text/x-handlebars">
 		<div>
 			<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg" style="width:300px; height:225px;">
@@ -84,6 +87,7 @@
 					rowHeight: 220
 				}
 			});
+			$( "#datepicker" ).datepicker({ autoSize: true });	
 		});
 </script>
 </head>
@@ -161,8 +165,12 @@
 						<div class="modal-body">
 							<div class="add-item-modal-form form-group">
 								<label class="add-item-modal-form-label" for="add-item-modal-form-title">Title</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="modal_title">
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="title">
+								<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">Date</label>
 
+
+								<input type="text" class="form-control add-item-modal-form-input" id="datepicker" >
+<!--<p>Date: <input type="text" id="datepicker"></p>-->
 								<label class="add-item-modal-form-label" for="add-item-modal-form-description">Description</label>
 								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
 
@@ -181,10 +189,9 @@
 								<br>
 
 
-								<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">End Date</label>
-								<input type="number" class="form-control add-item-modal-form-input" id="add-item-modal-form-enddate popupDatepicker" placeholder="100">
-
-								<p>A popup datepicker <input type="text" id="popupDatepicker" ></p>
+								
+								
+								<!--<p>A popup datepicker <input type="text" id="popupDatepicker" ></p>-->
 							</div>
 						</div>
 
