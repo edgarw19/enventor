@@ -129,7 +129,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					
 					<%if (loggedIn)  {%>
-					<li id="profilenav">Welcome <%= user.username %></li>
+					<li id="profilenav"><a href="/#">Welcome, <%= user.username %>!</a></li>
 					<li id="eventsnav"><a href="/eventItems">EVENTS</a></li>
 					<li id="profilenav"><a href="/logout">LOGOUT</a></li>
 					<%} else {  %>
