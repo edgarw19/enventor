@@ -19,7 +19,7 @@ router.get('/eventItems', function (req, res) {
 	eventItem.find(function(err, data) {
 		var jsondata = JSON.stringify(data);
       console.log(isLoggedIn);
-		 res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn });
+		 res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn, user: req.user });
 		});
 
 
@@ -109,7 +109,7 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect : '/events',
+  successRedirect : '/eventItems',
   failureRedirect : '/login',
   failureFlash : true
 }));
