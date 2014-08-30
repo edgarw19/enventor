@@ -37,17 +37,15 @@
 				</p>
 			</div>
 			<div style="display: none" id="template-otherItems">
-			<p>{{description}}</p>
-			{{#each attendeePhotos}}
-			<p>{{this}}</p>
-			{{/each}}
-			<p>{{tags}}</p>
-			<p>{{creator_id}}</p>
-			<p>{{date}}</p>
+				<p>{{description}}</p>
+				{{#each attendeePhotos}}
+				<p>{{this}}</p>
+				{{/each}}
+				<p>{{tags}}</p>
+				<p>{{creator_id}}</p>
+				<p>{{date}}</p>
 			</div>
 		</div>
-
-
 	</script>
 	<script type="text/javascript">
 		$("document").ready(function(){
@@ -128,6 +126,7 @@
 		</div>
 	</div>
 
+
 	<!-- Add Item modal -->
 	<div id="add-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -140,16 +139,24 @@
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="title">
 								<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">Date</label>
 
+
 								<input type="text" class="form-control add-item-modal-form-input" id="datepicker" >
 <!--<p>Date: <input type="text" id="datepicker"></p>-->
 								<label class="add-item-modal-form-label" for="add-item-modal-form-description">Description</label>
-								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="description"></textarea>
+								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
 
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors"  data-role="tagsinput">
 
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-picture">Picture</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg">
+
+								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-type">Event Category</label>
+								<select class="form-control" name="modal_type">
+									<option>School</option>
+									<option>Club</option>
+									<option>Personal</option>
+								</select>
 
 
 								
