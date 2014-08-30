@@ -37,6 +37,8 @@ filter: none;
 .event.width2 { width: 300px; }
 .event.height2 { height: 300px; }
 
+.glyph { display: inline;}
+
 /*.navbar {
    background-color:rgba(255,0,0,0.5);
 }

@@ -14,9 +14,12 @@ router.get('/backbone', function (req, res) {
 
 
 router.get('/eventItems', function (req, res) {
+  var isLoggedIn = false;
+  if (req.user) isLoggedIn = true;
 	eventItem.find(function(err, data) {
 		var jsondata = JSON.stringify(data);
-		 res.render('eventItems', {events : jsondata });
+      console.log(isLoggedIn);
+		 res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn });
 		});
 
 
@@ -31,26 +34,39 @@ router.get('/eventList', function (req, res) {
 
 });
 
-router.post('/addEvent', function (req, res) {
-  var newItem = new eventItem();
-
-  console.log(req.body.modal_title);
-  console.log(req.body.modal_description);
-
-  console.log(req.body.modal_type);
+router.post('/addEvent', isLoggedIn, function (req, res) {
+  var itemProperties = req.body;
+  var newItem = new eventItem(
+    {
+      title: itemProperties.modal_title,
+      description: itemProperties.modal_description,
+      type: itemProperties.modal_type,
+      tags: itemProperties.modal_tags,
+      date: itemProperties.modal_date,
+      picture: itemProperties.modal_picture,
+      creator_id: req.user._id
+    });
+console.log(newItem);
   newItem.save(function(err) {
         if (err)
           console.log('error on update');
         else
           console.log('successful update');
+          res.redirect('/eventItems');
+
       });
-  res.redirect('/eventItems');
 
 });
 
 
 router.get('/', function (req, res) {
-  res.render('index', { user : req.user, title: "blah" });
+  if (req.user){
+    res.redirect('eventItems');
+  }
+  else
+  {
+  res.render('index');
+}
 
 });
 
@@ -75,13 +91,13 @@ router.post('/register', function(req, res) {
   if((req.body.password).length < 4){
     return res.render("register", {info: "Get a longer password"});
   }
-  User.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
+  User.register(new User({ username : req.body.username , name: req.body.name}), req.body.password, function(err, account) {
     if (err) {
       return res.render("register", {info: "Sorry. That username already exists. Try again."});
     }
 
     passport.authenticate('local-signup')(req, res, function () {
-      res.redirect('/');
+      res.redirect('/eventItems');
     });
   });
 });
@@ -100,29 +116,6 @@ router.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile.ejs', {
       user : req.user // get the user out of session and pass to template
     });
-});
-
-
-
-
-router.get('/search', function(req, res) {      
-  res.render('search', {});
-});
-
-router.post('/search', function(req, res) {
-  var university = req.body.university.toLowerCase();
-  var categorysearch = req.body.categorysearch;
-  if (categorysearch) {
-    var categorysearch = categorysearch.toLowerCase();
-    User.find({categories: {$regex: new RegExp("^" + categorysearch)}, education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users) {
-      res.render('searchresults', {user_array: matching_users, school : req.body.university, categorysearch: req.body.categorysearch});
-    });
-  }
-  else {
-    User.find({education_key : { $regex: new RegExp("^" + university)}}, function(err, matching_users){
-      res.render('searchresults', {user_array : matching_users, school : req.body.university});
-    });
-  }
 });
 
 

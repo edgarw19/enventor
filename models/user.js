@@ -5,7 +5,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var DaysEnum = Object.freeze({"monday":1, "tuesday":2, "wednesday":3});
 
 var User = new Schema({
-	Name: String,
+	name: String,
 	username: String,
 	password: String,
 	prof_pic: String,

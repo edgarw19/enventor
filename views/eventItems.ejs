@@ -12,17 +12,14 @@
 
 	<!-- Optional theme -->
 	<!-- Bootstrap Core CSS -->
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="/stylesheets/eventItems.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui.css"/>
 	<link rel="stylesheet" href="/resources/demos/style.css">
-	<!-- Fonts -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-    <!-- Custom Theme CSS -->
-    <link href="/stylesheets/css/grayscale.css" rel="stylesheet">
+
+	<!-- Custom Theme CSS -->
+	<link href="/stylesheets/css/grayscale.css" rel="stylesheet">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="/javascripts/bower_components/underscore/underscore.js"></script>
@@ -58,6 +55,11 @@
 	</script>
 	<script type="text/javascript">
 		$("document").ready(function(){
+			$("#addEvent").hover(function(){
+				$(this).css("background", "orange");
+			}, function(){
+				$(this).css("background", "#FFF");
+			});
 			$(".event").click(function(){
 				var eventProperties = $(this).children("div:first");
 				var eventTitle = $(eventProperties).find("#template-title").children().html();
@@ -109,13 +111,27 @@
 
 			<div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
 				<ul class="nav navbar-nav navbar-right">
-					<li id="profilenav"><a href="index.html">PROFILE</a></li>
-					<li id="eventsnav"><a href="about-us.html">EVENTS</a></li>
+					
+					<%if (loggedIn)  {%>
+					<li id="profilenav"><a href="/profile">PROFILE</a></li>
+					<li id="eventsnav"><a href="/eventItems">EVENTS</a></li>
+					<li id="profilenav"><a href="/logout">LOGOUT</a></li>
+					<%} else {  %>
+					<li id="profilenav"><a href="/register">REGISTER</a></li>
+					<li id="eventsnav"><a href="/login">LOGIN</a></li>
+					<li id="profilenav"><a href="/eventItems">EVENTS</a></li>
+					<% } %>
+
 				</ul>
 			</div>
 		</div>
 	</div>
-	<br>
+	<div class="page-header text-center" style="margin-top: 80px">
+		<h1 class="glyph" style="margin-right: 100px"><span class="glyphicon glyphicon-th-large"></span> Events </h1> <%if (loggedIn)  {%><button class="btn btn-default btn-xs glyph" id="addEvent" style="margin-left:100px vertical-align:middle"><span class=" glyphicon glyphicon-plus-sign"></span></button>	<%}  %>
+
+	</div>
+
+
 	<div id="startingdata">
 		<%= events %>
 	</div>
@@ -124,9 +140,6 @@
 
 	</div>
 
-	<button class="btn btn-primary btn-lg" id="addEvent">
-		Add Event
-	</button>
 
 	<!-- Modal -->
 	<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -161,26 +174,28 @@
 	<div id="add-item-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<h3 class="modal-header add-item-modal-header">Add New Item</h4>
+				<h3 class="modal-header add-item-modal-header">New Event</h4>
 					<form role="form" id="add-item-modal-form-container" action="/addEvent" method="post">
 						<div class="modal-body">
 							<div class="add-item-modal-form form-group">
 								<label class="add-item-modal-form-label" for="add-item-modal-form-title">Title</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="title">
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="modal_title">
+								<br>
 								<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">Date</label>
 
 
-								<input type="text" class="form-control add-item-modal-form-input" id="datepicker" >
-<!--<p>Date: <input type="text" id="datepicker"></p>-->
+								<input type="text" class="form-control add-item-modal-form-input" id="datepicker" name="modal_date">
+								<br>
+								<!--<p>Date: <input type="text" id="datepicker"></p>-->
 								<label class="add-item-modal-form-label" for="add-item-modal-form-description">Description</label>
 								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
-
+								<br>
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors"  data-role="tagsinput">
-
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags">
+								<br>
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-picture">Picture</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg">
-
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg" name="modal_picture">
+								<br>
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-type">Event Category</label>
 								<select class="add-item-modal-form-label" name="modal_type">
 									<option>School</option>
@@ -198,7 +213,6 @@
 
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
 							<button type="button submit" class="add-item-modal-form-submit-btn btn btn-primary">Submit</button>
 						</div>
 					</form>
