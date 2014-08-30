@@ -12,29 +12,42 @@
     <title>Sign Up</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 
     <!-- Custom styles for this template -->
     <link href="/stylesheets/css/signin.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container">
-    <h1>Register Page</h1>
-    <p class="lead">Say something worthwhile here.</p><br>
+  <div class="container" style="text-align:center;">
+    
 
-  </div>
+
+<h1><span class="fa fa-sign-in"></span> Register</h1>
+    <p class="lead">It'll take less than a minute. <span style="font-size:8px;">[not]</span> Guaranteed.</p><br>
+
+  </div >
   <p>   <%info %></p>
+  <div style="width:30%;  padding-top:50px; padding-bottom:100px; margin-left:530px; border-radius:5px;">
   <form role="form" action="/register" method="post" style="max-width: 300px;">
+
+    <h5 > Name </h5>
     <div class="form-group">
-      <input type="text" name="username" placeholder="Enter Username" class="form-control">
+      <input type="text" name="Name" class="form-control">
     </div>
+    <h5 > Username </h5>
     <div class="form-group">
-      <input type="password" name="password" placeholder="Password" class="form-control">
+      <input type="text" name="username" class="form-control">
+    </div>
+    <h5 > Password </h5>
+    <div class="form-group">
+      <input type="password" name="password" class="form-control">
     </div>
     <button type="submit" class="btn btn-default">Submit</button>&nbsp;<a href="/">
     <button type="button" class="btn btn-primary">Cancel</button></a>
   </form>
+  </div>
 </body>
 
 </html>

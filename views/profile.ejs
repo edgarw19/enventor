@@ -5,29 +5,30 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
+		body 		{ /*padding-top:80px*/; word-wrap:break-word; }
 	</style>
 </head>
 <body>
 	<div class="container">
 
 		<div class="page-header text-center">
-			<h1><span class="fa fa-anchor"></span> Profile Page</h1>
-			<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+			<h1><span class="fa fa-anchor" ></span> Your Account</h1>
+			<!--<a href="/logout" class="btn btn-default btn-sm" style="float:right;">Logout</a>-->
 		</div>
 
 		<div class="row">
 
 			<!-- LOCAL INFORMATION -->
 			<div class="col-sm-6">
-				<div class="well">
-					<h3><span class="fa fa-user"></span> Local</h3>
-					<img src="<%= user.profilepic %>" height="300" width="300">
+				<div class="well" style="float:left; width:400px; height: 500px;">
+					<h3><span class="fa fa-user"></span> Profile</h3>
+					<img src="<%= user.profilepic %>" height="200" width="200">
 
 					<p>
-
+						<b> Name </b>: <%= user.Name %><br>
 						<strong>Username</strong>: <%= user.username %><br>
-						<% if (user.prof_type) { %>
+						
+						<!--<% if (user.prof_type) { %>
 							Tutor
 						<% } else { %>
 								Student
@@ -39,7 +40,7 @@
 						Task Priority: <%= user.categories[i].taskpriority %> <br>
 						 Task Duration: <%= user.categories[i].taskduration %> </p>
 						<br>
-						<% } %>
+						<% } %>-->
 
 
 	
@@ -49,11 +50,18 @@
 
 
 					</p>
-
+				<a href="/update">Update User information</a>
 				</div>
+			<div style="float:left; width:500px;border:2px solid black; border-radius: 5px; height:500px;">
+			<h1 style="text-align:center;"> Your Events </h3>	
+			<h4> Pinned </h4> <br/>
+
+			<h4> Attending </h4> <br/>
+
+			<h4> In Your Area </h4> <br/>
 			</div>
 
-			<a href="/update">Update User information</a>
+			
 
 		</div>
 
