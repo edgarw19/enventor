@@ -12,7 +12,9 @@ var eventItem = new Schema({
     type: String,
     picture: String,
     creator_id: String,
-    date: Date
+    date: Date,
+    time: String,
+    location: String
     
 });
 module.exports = mongoose.model('eventItem', eventItem);

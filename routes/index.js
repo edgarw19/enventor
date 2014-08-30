@@ -44,7 +44,9 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
       tags: itemProperties.modal_tags,
       date: itemProperties.modal_date,
       picture: itemProperties.modal_picture,
-      creator_id: req.user._id
+      creator_id: req.user._id,
+      time: itemProperties.modal_time,
+      location: itemProperties.modal_location
     });
 console.log(newItem);
   newItem.save(function(err) {
@@ -107,7 +109,7 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect : '/profile',
+  successRedirect : '/events',
   failureRedirect : '/login',
   failureFlash : true
 }));

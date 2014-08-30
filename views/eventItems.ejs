@@ -10,17 +10,15 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-	<!-- Optional theme -->
 	<!-- Bootstrap Core CSS -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="/stylesheets/eventItems.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui.css"/>
-	<link rel="stylesheet" href="/resources/demos/style.css">
 
 
 	<!-- Custom Theme CSS -->
 	<link href="/stylesheets/css/grayscale.css" rel="stylesheet">
-	<!-- Latest compiled and minified JavaScript -->
+	<!-- Latest necessary jquery + js files + backbone -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="/javascripts/bower_components/underscore/underscore.js"></script>
 	<script src="/javascripts/bower_components/isotope/jquery.isotope.js"></script>
@@ -30,7 +28,9 @@
 	<script src="/javascripts/lib/client.js"></script>
 	<script src="/javascripts/lib/init.js"></script>
 	<script src="javascripts/jquery-ui.js"></script>
+	<script src="stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 
+	<!-- Template for event cards -->
 	<script id="eventTemplate" type="text/x-handlebars">
 		<div>
 			<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg" style="width:300px; height:225px;">
@@ -52,14 +52,31 @@
 				<p>{{date}}</p>
 			</div>
 		</div>
-	</script>
+	</script> 
+
+	<!-- Custom JS -->
 	<script type="text/javascript">
 		$("document").ready(function(){
+			//add event hover function
 			$("#addEvent").hover(function(){
 				$(this).css("background", "orange");
 			}, function(){
 				$(this).css("background", "#FFF");
 			});
+              //Add new item modal
+              $("#addEvent").click(function(){
+              	$('#add-item-modal').modal('toggle')
+              });
+
+
+              $('#timepicker1').timepicker({
+              	template: false,
+              	showInputs: false,
+              	minuteStep: 5
+              });
+
+
+			//Brings modal drop down when you click on event card
 			$(".event").click(function(){
 				var eventProperties = $(this).children("div:first");
 				var eventTitle = $(eventProperties).find("#template-title").children().html();
@@ -68,9 +85,8 @@
 				$('#eventModal').find("#modal-Description").html(eventDescription);
 				$('#eventModal').modal('toggle')
 			});
-			$("#addEvent").click(function(){
-				$('#add-item-modal').modal('toggle')
-			});
+			
+			//isotope creates cards for us
 			var $container = $('#initialContent').isotope({
 				itemSelector: '.event',
 				layoutMode: 'masonry',
@@ -96,7 +112,7 @@
 
 
 <body>
-
+	<!-- Navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -126,22 +142,29 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- Small header -->
 	<div class="page-header text-center" style="margin-top: 80px">
 		<h1 class="glyph" style="margin-right: 100px"><span class="glyphicon glyphicon-th-large"></span> Events </h1> <%if (loggedIn)  {%><button class="btn btn-default btn-xs glyph" id="addEvent" style="margin-left:100px vertical-align:middle"><span class=" glyphicon glyphicon-plus-sign"></span></button>	<%}  %>
 
 	</div>
 
 
+	<!--  Hidden events data -->
 	<div id="startingdata">
 		<%= events %>
 	</div>
 
+
+	<!--  Where the event cards appear -->
 	<div id="initialContent" class="isotope" style="margin-top: 100px">
 
 	</div>
 
 
-	<!-- Modal -->
+	<!-- Event modal -->
 	<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -178,39 +201,47 @@
 					<form role="form" id="add-item-modal-form-container" action="/addEvent" method="post">
 						<div class="modal-body">
 							<div class="add-item-modal-form form-group">
-								<label class="add-item-modal-form-label" for="add-item-modal-form-title">Title</label>
+								<label class="add-item-modal-form-label" for="add-item-modal-form-title">Title*</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-title" placeholder="Title" name="modal_title">
 								<br>
-								<label class="add-item-modal-form-label" for="add-item-modal-form-enddate">Date</label>
+								<label class="add-item-modal-form-label" for="add-item-modal-form-date">Date*</label>
+								<br>
 
+								<input type="text" class=" form-control add-item-modal-form-input input-small" id="datepicker" name="modal_date">
+								<br>
 
-								<input type="text" class="form-control add-item-modal-form-input" id="datepicker" name="modal_date">
+								<label class="add-item-modal-form-label" for="add-item-modal-form-time">Start Time*</label>
+								<div class="input-append bootstrap-timepicker">
+								<input id="timepicker1" type="text" class="form-control input-small add-item-modal-form-input" name="modal_time">
+									<span class="add-on"><i class="icon-time"></i></span>
+								</div>
+								<br>
+
+								<label class="add-item-modal-form-label" for="add-item-modal-form-time">Location*</label>
+								<input id="timepicker1" type="text" class="form-control input-small add-item-modal-form-input" name="modal_time" placeholder="Address, City..." name="modal_location">
 								<br>
 								<!--<p>Date: <input type="text" id="datepicker"></p>-->
 								<label class="add-item-modal-form-label" for="add-item-modal-form-description">Description</label>
 								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
 								<br>
+
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags">
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags" style="width:100%">
 								<br>
+
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-picture">Picture</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg" name="modal_picture">
 								<br>
-								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-type">Event Category</label>
+
+								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-type">Event Category*</label>
 								<select class="add-item-modal-form-label" name="modal_type">
 									<option>School</option>
 									<option>Club</option>
 									<option>Personal</option>
 								</select>
 								<br>
-
-
-								
-								
-								<!--<p>A popup datepicker <input type="text" id="popupDatepicker" ></p>-->
 							</div>
 						</div>
-
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="button submit" class="add-item-modal-form-submit-btn btn btn-primary">Submit</button>
