@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-
-
-    <title>Sign Up</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <title>Node Authentication</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-
-    <!-- Custom styles for this template -->
-    <link href="/stylesheets/css/signin.css" rel="stylesheet">
+  <style>
+    body    { padding-top:80px; }
+  </style>
 </head>
-
 <body>
-  <div class="container" style="text-align:center;">
-    
+  <div class="container">
+
+    <div class="col-sm-6 col-sm-offset-3">
+
+      <h1><span class="fa fa-sign-in"></span> Register</h1>
 
 
-<h1><span class="fa fa-sign-in"></span> Register</h1>
-    <p class="lead">It'll take less than a minute. <span style="font-size:8px;">[not]</span> Guaranteed.</p><br>
 
-  </div >
-  <p>   <%info %></p>
-  <div style="width:30%;  padding-top:50px; padding-bottom:100px; margin-left:530px; border-radius:5px;">
-  <form role="form" action="/register" method="post" style="max-width: 300px;">
+      <!-- LOGIN FORM -->
+      <form action="/register" method="post">
+      <div class="form-group">
+      <label>Name</label>
+        <input type="text" name="Name" class="form-control">
+      </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" name="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
 
-    <h5 > Name </h5>
-    <div class="form-group">
-      <input type="text" name="Name" class="form-control">
+        <button type="submit" class="btn btn-warning btn-lg">Register</button>
+      </form>
+
+      <form role="form" action="/register" method="post" style="max-width: 300px;">
+
+     
+
+      <hr>
     </div>
-    <h5 > Username </h5>
-    <div class="form-group">
-      <input type="text" name="username" class="form-control">
-    </div>
-    <h5 > Password </h5>
-    <div class="form-group">
-      <input type="password" name="password" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>&nbsp;<a href="/">
-    <button type="button" class="btn btn-primary">Cancel</button></a>
-  </form>
   </div>
 </body>
-
 </html>
