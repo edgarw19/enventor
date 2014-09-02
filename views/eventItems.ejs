@@ -54,6 +54,7 @@
 		</div>
 	</script> 
 
+<!-- Template for modal that drops down -->
 	<script id="modalTemplate" type="text/x-handlebars">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -104,11 +105,6 @@
 
 			//Brings modal drop down when you click on event card
 			$(".event").click(function(){
-				/*var eventProperties = $(this).children("div:first");
-				var eventTitle = $(eventProperties).find("#template-title").children().html();
-				var eventDescription = $(eventProperties).find("#template-otherItems").children("p:first").html();
-				$('#eventModal').find("#modal-Title").html(eventTitle);
-				$('#eventModal').find("#modal-Description").html(eventDescription);*/
 				$('#eventModal').modal('toggle')
 			});
 			
