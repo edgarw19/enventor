@@ -59,15 +59,16 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<h4 id="modal-Title">{{title}}</h4>
+				<h5 id="modal-dateTime"> Date: {{date}} Time:{{time}} Location: {{location}}</h5>
 			</div>
 			<div class="modal-body">
 				<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg" style="width:300px; height:225px;">
-				<p id="modal-Type">TYPE: </p>
-				<p id="modal-Description"> {{title}} </p>
+				<p id="modal-Type">{{type}} </p>
+				<p id="modal-Description"> {{description}} </p>
 			</div>
 			<div class="modal-footer">
 				<div align="left">
-					<p id="modal-Attendees"> People attending</p>
+					<p id="modal-Attendees"> People attending: {{#each attendeeNames}} {{this}} {{/each}}</p>
 				</div>
 			</div>
 			<div class="modal-footer">
