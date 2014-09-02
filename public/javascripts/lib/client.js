@@ -61,7 +61,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 	routes: {
 		"*eventItems" : "eventItems",
-		"eventItem/:id": "singleBook"
+		"*eventItems/:title": "eventItems",
 	},
 	_setupCollection: function(){
 		if(this.collection) return;

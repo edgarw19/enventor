@@ -14,7 +14,13 @@ var eventItem = new Schema({
     creator_id: String,
     date: Date,
     time: String,
-    location: String
+    location: String,
+
+    //lower case versions of properties for searchability
+titleSearch: String,
+tagsSearch: [],
+locationSearch: String //needs a better type of search, coordinate based, city/zipcode etc...
+
     
 });
 module.exports = mongoose.model('eventItem', eventItem);

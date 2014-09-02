@@ -9,7 +9,8 @@ var User = new Schema({
 	username: String,
 	password: String,
 	prof_pic: String,
-	categories : [],
+	tagsOfInterest : [],
+
 
 	
 	}

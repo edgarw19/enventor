@@ -14,10 +14,22 @@ router.get('/eventItems', function (req, res) {
   if (req.user) isLoggedIn = true;
   eventItem.find(function(err, data) {
     var jsondata = JSON.stringify(data);
-    console.log(isLoggedIn);
     res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn, user: req.user });
   });
 
+
+});
+
+//post register information
+router.post('/searchEvents', function(req, res) {
+  var searchTitle = req.body.searchCriteria;
+  var isLoggedIn = false;
+  if (req.user) isLoggedIn = true;
+   eventItem.find({title: searchTitle}, function(err, data) {
+    console.log(data);
+    var jsondata = JSON.stringify(data);
+    res.render('searchEvents', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
+  });
 
 });
 
@@ -38,6 +50,13 @@ router.get('/eventList', function (req, res) {
 //post to add event to database
 router.post('/addEvent', isLoggedIn, function (req, res) {
   var itemProperties = req.body;
+  var tagsForSearching = [];
+
+  for (var i = 0; i < itemProperties.modal_tags.length; i++)
+  {
+    tagsSearch.push(itemProperties.modal_tags[i].toLowerCase);
+  }
+
   var newItem = new eventItem(
   {
     title: itemProperties.modal_title,
@@ -48,9 +67,10 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
     picture: itemProperties.modal_picture,
     creator_id: req.user._id,
     time: itemProperties.modal_time,
-    location: itemProperties.modal_location
+    location: itemProperties.modal_location,
+    titleSearch: itemProperties.modal_title.toLowerCase(),
+    tagsSearch: tagsForSearching
   });
-  console.log(newItem);
   newItem.save(function(err) {
     if (err)
       console.log('error on update');
@@ -61,6 +81,11 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
   });
 
 });
+
+
+
+
+
 
 
 //home page
