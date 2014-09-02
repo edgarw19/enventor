@@ -6,81 +6,77 @@ var eventItem = require('../models/eventItems');
 /* GET home page. */
 
 
-router.get('/backbone', function (req, res) {
-  res.render('backbone', { user : req.user, title: "blah" });
-
-});
 
 
-
+//Get event items
 router.get('/eventItems', function (req, res) {
   var isLoggedIn = false;
   if (req.user) isLoggedIn = true;
-	eventItem.find(function(err, data) {
-		var jsondata = JSON.stringify(data);
-      console.log(isLoggedIn);
-		 res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn, user: req.user });
-		});
+  eventItem.find(function(err, data) {
+    var jsondata = JSON.stringify(data);
+    console.log(isLoggedIn);
+    res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn, user: req.user });
+  });
 
 
 });
 
+
+
+
+
+//backbone URL to get event items
 router.get('/eventList', function (req, res) {
 	eventItem.find(function(err, data) {
 		if(err) return;
 		res.json(data);
-		});
+  });
 
 
 });
 
+//post to add event to database
 router.post('/addEvent', isLoggedIn, function (req, res) {
   var itemProperties = req.body;
   var newItem = new eventItem(
-    {
-      title: itemProperties.modal_title,
-      description: itemProperties.modal_description,
-      type: itemProperties.modal_type,
-      tags: itemProperties.modal_tags,
-      date: itemProperties.modal_date,
-      picture: itemProperties.modal_picture,
-      creator_id: req.user._id,
-      time: itemProperties.modal_time,
-      location: itemProperties.modal_location
-    });
-console.log(newItem);
+  {
+    title: itemProperties.modal_title,
+    description: itemProperties.modal_description,
+    type: itemProperties.modal_type,
+    tags: itemProperties.modal_tags,
+    date: itemProperties.modal_date,
+    picture: itemProperties.modal_picture,
+    creator_id: req.user._id,
+    time: itemProperties.modal_time,
+    location: itemProperties.modal_location
+  });
+  console.log(newItem);
   newItem.save(function(err) {
-        if (err)
-          console.log('error on update');
-        else
-          console.log('successful update');
-          res.redirect('/eventItems');
+    if (err)
+      console.log('error on update');
+    else
+      console.log('successful update');
+    res.redirect('/eventItems');
 
-      });
+  });
 
 });
 
 
+//home page
 router.get('/', function (req, res) {
   if (req.user){
     res.redirect('eventItems');
   }
   else
   {
-  res.render('index');
-}
+    res.render('index');
+  }
 
 });
 
-router.get('/backbone', function (req, res) {
-  res.render('backbone', {});
 
-});
-
-router.get('/test', function (req, res) {
-  res.render('test', { });
-
-});
+//register page 
 
 router.get('/register', function(req, res) {
 
@@ -89,6 +85,7 @@ router.get('/register', function(req, res) {
 });
 
 
+//post register information
 router.post('/register', function(req, res) {
   if((req.body.password).length < 4){
     return res.render("register", {info: "Get a longer password"});
@@ -104,16 +101,20 @@ router.post('/register', function(req, res) {
   });
 });
 
+//login page
 router.get('/login', function(req, res) {
   res.render('login', {});
 });
 
+
+//post login credentials
 router.post('/login', passport.authenticate('local', {
   successRedirect : '/eventItems',
   failureRedirect : '/login',
   failureFlash : true
 }));
 
+//currently needs more work
 router.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile.ejs', {
       user : req.user // get the user out of session and pass to template
@@ -124,22 +125,22 @@ router.get('/profile', isLoggedIn, function(req, res) {
 
 
 
-    router.get('/logout', function(req, res) {
-      req.logout();
-      res.redirect('/');
-    });
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
-    router.get('/ping', function(req, res){
-      res.send("pong!", 200);
-    });
+router.get('/ping', function(req, res){
+  res.send("pong!", 200);
+});
 
-    function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) {
 
-      if (req.isAuthenticated())
-        return next();
-      res.redirect('/');
-    };
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
+};
 
 
 
-    module.exports = router;
+module.exports = router;
