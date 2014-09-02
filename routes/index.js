@@ -21,7 +21,7 @@ router.get('/eventItems', function (req, res) {
 });
 
 //post register information
-router.post('/searchEvents', function(req, res) {
+router.post('/eventItems/:title', function(req, res) {
   var searchTitle = req.body.searchCriteria;
   var isLoggedIn = false;
   if (req.user) isLoggedIn = true;

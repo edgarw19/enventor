@@ -27,8 +27,8 @@
 	<script src="/javascripts/bower_components/bootstrap-tagsinput.js"></script>
 	<script src="/javascripts/lib/client.js"></script>
 	<script src="/javascripts/lib/init.js"></script>
-	<script src="javascripts/jquery-ui.js"></script>
-	<script src="stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<script src="/javascripts/jquery-ui.js"></script>
+	<script src="/stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 
 	<!-- Template for event cards -->
 	<script id="eventTemplate" type="text/x-handlebars">
@@ -85,7 +85,9 @@
 	<script type="text/javascript">
 		$("document").ready(function(){
 
-
+			$('#searchFormTitle').change(function () {
+    $('#searchFormBar').attr('action', '/eventItems/' + $('#searchFormTitle').val());
+});
 			//add event hover function
 			$("#addEvent").hover(function(){
 				$(this).css("background", "orange");
@@ -176,10 +178,10 @@
 	</div>
 
 
-
+<!-- Search bar -->
 	<div class="centered">
 
-		<form class="navbar-form navbar-center" id="searchFormBar" action='/searchEvents' method="post">
+		<form class="navbar-form navbar-center" id="searchFormBar" action='/eventItems' method="post">
 			<div class="form-group">
 				<input type="text" class="form-control" id="searchFormTitle" placeholder="Search" name="searchCriteria">
 			</div>
