@@ -10,14 +10,34 @@ var eventCollection = Backbone.Collection.extend({
 var eventView = Backbone.View.extend({
 	tagName: "div",
 	className: "event symbol width2 height2",
+	events: {
+		'click' : 'showModal'
+	},
 	render: function(){
 		var template = $("#eventTemplate").html();
 		var compiled = Handlebars.compile(template);
 		var html = compiled(this.model.attributes);
 		this.$el.html(html);
 		return this;
+	},
+	showModal: function(){
+		var view = new modalView({model: this.model});
+		$("#backboneModal").html(view.render().el);
+	},
+});
+
+var modalView = Backbone.View.extend({
+	tagname: "div",
+	render: function(){
+		var template = $("#modalTemplate").html();
+		var compiled = Handlebars.compile(template);
+		var html = compiled(this.model.attributes);
+		this.$el.html(html);
+		return this;
 	}
 });
+
+
 
 var eventCollectionView = Backbone.View.extend({
 	initialize: function() {
