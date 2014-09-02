@@ -13,8 +13,8 @@
 	<!-- Bootstrap Core CSS -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="/stylesheets/eventItems.css">
-	<link rel="stylesheet" type="text/css" href="stylesheets/jquery-ui.css"/>
-
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.css"/>
+	<link rel="stylesheet" href="/stylesheets/bootstrap-multiselect.css"/>
 
 	<!-- Custom Theme CSS -->
 	<link href="/stylesheets/css/grayscale.css" rel="stylesheet">
@@ -29,8 +29,9 @@
 	<script src="/javascripts/lib/init.js"></script>
 	<script src="/javascripts/jquery-ui.js"></script>
 	<script src="/stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<script src="/javascripts/bower_components/bootstrap-multiselect.js"></script>
 
-	<!-- Template for event cards -->
+	<!-- Template for event cards TODO: perhaps should display date in bottom right instead? -->
 	<script id="eventTemplate" type="text/x-handlebars">
 		<div>
 			<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg" style="width:300px; height:225px;">
@@ -54,7 +55,7 @@
 		</div>
 	</script> 
 
-<!-- Template for modal that drops down -->
+	<!-- Template for modal that drops down TODO: add all item properties in with handlebars in a fluid display-->
 	<script id="modalTemplate" type="text/x-handlebars">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -66,6 +67,7 @@
 				<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg" style="width:300px; height:225px;">
 				<p id="modal-Type">{{type}} </p>
 				<p id="modal-Description"> {{description}} </p>
+				<p id="modal_tags"> {{tags}}</p>
 			</div>
 			<div class="modal-footer">
 				<div align="left">
@@ -85,9 +87,19 @@
 	<script type="text/javascript">
 		$("document").ready(function(){
 
+			
+			$("#allChoices").click(function(){
+				$("otherChoices").toggleClass('noDisplay');
+			});
+
+			$('#example2').multiselect({
+				includeSelectAllOption: true
+			}
+			);
+
 			$('#searchFormTitle').change(function () {
-    $('#searchFormBar').attr('action', '/eventItems/' + $('#searchFormTitle').val());
-});
+				$('#searchFormBar').attr('action', '/eventItems/' + $('#searchFormTitle').val());
+			});
 			//add event hover function
 			$("#addEvent").hover(function(){
 				$(this).css("background", "orange");
@@ -178,7 +190,7 @@
 	</div>
 
 
-<!-- Search bar -->
+	<!-- Search bar -->
 	<div class="centered">
 
 		<form class="navbar-form navbar-center" id="searchFormBar" action='/eventItems' method="post">
@@ -189,6 +201,8 @@
 		</form>
 	</div>
 
+
+	
 
 
 
@@ -208,9 +222,23 @@
 	<!-- Event modal -->
 	<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" id="backboneModal">
-			
+
 		</div>
 	</div>
+
+	<div class="input-append btn-group">
+    <input class="span2" id="appendedInputButton" size="16" type="text">
+    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+        <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+        <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+        <li class="divider"></li>
+        <li><a href="#"><i class="i"></i> Make admin</a></li>
+    </ul>
+</div>
 
 
 	<!-- Add Item modal -->
@@ -242,12 +270,40 @@
 								<br>
 								<!--<p>Date: <input type="text" id="datepicker"></p>-->
 								<label class="add-item-modal-form-label" for="add-item-modal-form-description">Description</label>
-								<textarea type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
+								<textarea style="display:none" type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-description" placeholder="Description" name="modal_description"></textarea>
 								<br>
 
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags" style="width:100%">
 								<br>
+
+								<select id="example2" multiple="multiple">
+									<div id="otherChoices">
+										<optgroup label="Academic" class="blah">
+											<option value="Engineering" class="blah">Engineering</option>
+											<option value="Humanities">Humanities</option>
+											<option value="Life_Sciences">Life Sciences</option>
+											<option value="Social Sciences_Sciences">Social Sciences</option>
+										</optgroup>
+										<optgroup label="Clubs">
+											<option value="Event">Event </option>
+											<option value="Meeting">Meeting</option>
+											<option value="Performance">Performance</option>
+										</optgroup>
+										<optgroup label="Personal">
+											<option value="Discussion">Discussion</option>
+											<option value="Event">Event</option>
+											<option value="Food">Food</option>
+											<option value="Hangout">Hangout</option>
+											<option value="Trip">Trip</option>
+										</optgroup>
+										<optgroup label="Other">
+											<option value="Other">
+												<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags" style="width:100%">
+											</optgroup>
+										</option>
+									</div>
+								</select>
 
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-picture">Picture</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg" name="modal_picture">

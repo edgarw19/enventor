@@ -3,6 +3,11 @@
 	display:none;
 }
 
+.noDisplay
+{
+  display:none;
+}
+
 /* clearfix */
 .isotope:before,
 .isotope:after {
