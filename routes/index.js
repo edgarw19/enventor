@@ -28,7 +28,7 @@ router.post('/searchEvents', function(req, res) {
    eventItem.find({title: searchTitle}, function(err, data) {
     console.log(data);
     var jsondata = JSON.stringify(data);
-    res.render('searchEvents', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
+    res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
   });
 
 });
