@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+    <script src="/javascripts/bower_components/jquery/dist/jquery.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/eventItems.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.css"/>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-multiselect.css"/>
+
+    <!-- Custom Theme CSS -->
+    <link href="/stylesheets/css/grayscale.css" rel="stylesheet">
+    <!-- Latest necessary jquery + js files + backbone -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/javascripts/bower_components/underscore/underscore.js"></script>
+    <script src="/javascripts/bower_components/isotope/jquery.isotope.js"></script>
+    <script src="/javascripts/bower_components/backbone/backbone.js"></script>
+    <script src="/javascripts/bower_components/handlebars/handlebars.js"></script>
+    <script src="/javascripts/bower_components/bootstrap-tagsinput.js"></script>
+    <script src="/javascripts/lib/client.js"></script>
+    <script src="/javascripts/lib/init.js"></script>
+    <script src="/javascripts/jquery-ui.js"></script>
+    <script src="/stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+    <script src="/javascripts/bower_components/bootstrap-multiselect.js"></script>
+</head>
+<body>
+
+<div id="startingdata" style="display:none">
+<%= event %>
+</div>
+
+<div id="initialContent"></div>
+
+
+<!-- script template for page -->
+<script id="eventPageTemplate" type="text/x-handlebars">
+    <div>
+        {{title}}
+    </div>
+</script>
+
+</body>
+</html>

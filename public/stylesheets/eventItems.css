@@ -50,7 +50,49 @@ filter: none;
   margin-right: 2%;
 }
 
+/* CARDS */
+.eventCard img {
+  width: 300px;
+  max-height: 225px;
+}
+
+#template-title {
+  position:fixed; 
+  width:225px; 
+  height:75px;
+}
+
+#template-title p {
+  font-size:11pt; 
+  margin-left:10px; 
+  font-weight: lighter;
+}
+
+#template-attendees {
+  background-color:red; 
+  width:75px; 
+  height:75px; 
+  position:fixed; 
+  margin-top:0px; 
+  margin-left:225px;
+}
+
+#template-attendees p {
+  font-size: 30px; 
+  margin-left:auto; 
+  margin-right:auto; 
+  width:50%; 
+  padding-top: 10px;
+}
+
 /* MODAL */
+
+.modal-content a:hover {
+  text-decoration: none;
+  color: #d35400 !important;
+  cursor: pointer;
+}
+
 .modal-body img {
   position: relative;
   left: 50%;
@@ -67,6 +109,11 @@ filter: none;
   overflow: hidden;
 }
 
+#modal-Title a {
+  color: black;
+  font-weight: bolder;
+}
+
 #modal-Type {
   font-size: 14pt;
   font-variant: small-caps;
@@ -76,13 +123,12 @@ filter: none;
   color: gray;
 }
 
-#modal-Tags a:hover {
-  text-decoration: none;
-  color: #d35400;
-}
-
 .modal-footer {
   margin-top: 0;
+}
+
+#modal-Attendees p:first-child {
+  font-size: 14pt;
 }
 
 /*.navbar {
