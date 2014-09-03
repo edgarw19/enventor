@@ -11,7 +11,7 @@ var PassportLocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user.js');
 var routes = require('./routes/index');
 var app = express();
-var port = process.env.PORT || 3000; 
+var port = process.env.PORT || 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,6 +71,6 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-app.listen(port, function() {
-    console.log('listening on port %d', port); 
-});
+// app.listen(port, function() {
+//     console.log('listening on port %d', port); 
+// });
