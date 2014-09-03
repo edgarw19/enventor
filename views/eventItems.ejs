@@ -262,10 +262,37 @@
 								<br>
 
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
-								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags" style="width:100%">
 								<br>
+								<select id="example2" multiple="multiple">
+									<div id="otherChoices" name="tags[]" class="form-control add-item-modal-form-input" >
+										<optgroup label="Academic">
+											<option value="engineering">Engineering</option>
+											<option value="humanities">Humanities</option>
+											<option value="life_sciences">Life Sciences</option>
+											<option value="life_sciences">Social Sciences</option>
+										</optgroup>
+										<optgroup label="Clubs">
+											<option value="event">Event </option>
+											<option value="meeting">Meeting</option>
+											<option value="performance">Performance</option>
+										</optgroup>
+										<optgroup label="Individual">
+											<option value="discussion">Discussion</option>
+											<option value="event">Event</option>
+											<option value="food">Food</option>
+											<option value="hangout">Hangout</option>
+											<option value="trip">Trip</option>
+										</optgroup>
+									</div>
+								</select>
+								<br>
+								<br>
+								<!--<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Other</label>
+								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-tags" placeholder="Outdoors" data-role="tagsinput" name="modal_tags" style="width:100%"> 
+								<br>  -->
+								
 
-					
+
 
 								<label  style="margin-top: 2px"  class="add-item-modal-form-label" for="add-item-modal-form-picture">Picture</label>
 								<input type="text" class="form-control add-item-modal-form-input" id="add-item-modal-form-picture" placeholder="http://www.facebook.photo.jpg" name="modal_picture">
@@ -284,6 +311,8 @@
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="button submit" class="add-item-modal-form-submit-btn btn btn-primary">Submit</button>
 						</div>
+						<br>
+						<br>
 					</form>
 				</div>
 			</div>

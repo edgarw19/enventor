@@ -50,11 +50,11 @@ router.get('/eventList', function (req, res) {
 //post to add event to database
 router.post('/addEvent', isLoggedIn, function (req, res) {
   var itemProperties = req.body;
-  var tagsForSearching = [];
+  var tagsSearch = [];
 
-  for (var i = 0; i < itemProperties.modal_tags.length; i++)
+  for (var i = 0; i < itemProperties.multiselect.length; i++)
   {
-    tagsSearch.push(itemProperties.modal_tags[i].toLowerCase);
+    tagsSearch.push(itemProperties.multiselect[i]);
   }
 
   var newItem = new eventItem(
@@ -69,8 +69,9 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
     time: itemProperties.modal_time,
     location: itemProperties.modal_location,
     titleSearch: itemProperties.modal_title.toLowerCase(),
-    tagsSearch: tagsForSearching
+    tagsSearch: tagsSearch
   });
+  console.log(newItem);
   newItem.save(function(err) {
     if (err)
       console.log('error on update');
