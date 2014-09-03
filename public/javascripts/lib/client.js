@@ -58,6 +58,7 @@ var eventCollectionView = Backbone.View.extend({
 	className: "events",
 	render: function(){
 		this.collection.each(function(eventItem) {
+			// check if page is cards or individual event
 			var path = window.location.pathname;
 			if (path.substr(0, 7) === '/event/')
 				var view = new eventPageView({model: eventItem});
