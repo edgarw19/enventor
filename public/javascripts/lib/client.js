@@ -59,7 +59,7 @@ var eventCollectionView = Backbone.View.extend({
 	render: function(){
 		this.collection.each(function(eventItem) {
 			var path = window.location.pathname;
-			if (path.substr(0, 6) === '/event')
+			if (path.substr(0, 7) === '/event/')
 				var view = new eventPageView({model: eventItem});
 			else
 				var view = new eventView({model: eventItem});
