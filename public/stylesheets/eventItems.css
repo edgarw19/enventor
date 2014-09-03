@@ -44,6 +44,47 @@ filter: none;
 
 .glyph { display: inline;}
 
+/* SEARCH BAR */
+.centered {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+/* MODAL */
+.modal-body img {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+
+  width: 300px;
+  height: 100%;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  overflow: hidden;
+}
+
+#modal-Type {
+  font-size: 14pt;
+  font-variant: small-caps;
+}
+
+#modal-Tags a {
+  color: gray;
+}
+
+#modal-Tags a:hover {
+  text-decoration: none;
+  color: #d35400;
+}
+
+.modal-footer {
+  margin-top: 0;
+}
+
 /*.navbar {
    background-color:rgba(255,0,0,0.5);
 }
