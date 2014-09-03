@@ -16,8 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.css"/>
 	<link rel="stylesheet" href="/stylesheets/bootstrap-multiselect.css"/>
 
-	<!-- Custom Theme CSS -->
-	<link href="/stylesheets/css/grayscale.css" rel="stylesheet">
+
 	<!-- Latest necessary jquery + js files + backbone -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="/javascripts/bower_components/underscore/underscore.js"></script>
@@ -62,52 +61,52 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<h3 id="modal-Title">{{title}}</h5>
-				<h5 id="modal-dateTime"> 
-					{{date}} | {{time}} 00:00pm
-					<br/>
-					{{location}} location placeholder
-				</h5>
-			</div>
-			<div class="modal-body">
-				<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg">
-				<p id="modal-Type">{{type}} </p>
-				<p id="modal-Description"> {{description}} </p>
-				<div id="modal-Tags"><i> {{#each tags}} <a>{{this}}</a> {{/each}}</i></div>
-			</div>
-			<div class="modal-footer">
-				<div align="left">
-					<p id="modal-Attendees"> 
-						People attending
-						<br/> 
-						{{#each attendeeNames}} {{this}} {{/each}}</p>
+					<h5 id="modal-dateTime"> 
+						{{date}} | {{time}} 00:00pm
+						<br/>
+						{{location}} location placeholder
+					</h5>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<div>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+				<div class="modal-body">
+					<img src="http://the-digital-reader.com/wp-content/uploads/2013/10/Calvin-Hobbes-calvin-26-hobbes-254155_1024_7681.jpg">
+					<p id="modal-Type">{{type}} </p>
+					<p id="modal-Description"> {{description}} </p>
+					<div id="modal-Tags"><i> {{#each tags}} <a>{{this}}</a> {{/each}}</i></div>
 				</div>
-			</div>
-		</div>
-	</script>
+				<div class="modal-footer">
+					<div align="left">
+						<p id="modal-Attendees"> 
+							People attending
+							<br/> 
+							{{#each attendeeNames}} {{this}} {{/each}}</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</script>
 
-	<!-- Custom JS -->
-	<script type="text/javascript">
-		$("document").ready(function(){
+			<!-- Custom JS -->
+			<script type="text/javascript">
+				$("document").ready(function(){
 
-			
-			$("#allChoices").click(function(){
-				$("otherChoices").toggleClass('noDisplay');
-			});
 
-			$('#example2').multiselect({
-				includeSelectAllOption: true
-			}
-			);
+					$("#allChoices").click(function(){
+						$("otherChoices").toggleClass('noDisplay');
+					});
 
-			$('#searchFormTitle').change(function () {
-				$('#searchFormBar').attr('action', '/eventItems/' + $('#searchFormTitle').val());
-			});
+					$('.dropdowntags').multiselect({
+						includeSelectAllOption: true
+					}
+					);
+//Perhaps add in changing title later
+					//$('#searchFormTitle').change(function () {
+					//	$('#searchFormBar').attr('action', '/eventItems/' + $('#searchFormTitle').val());
+					//});
 			//add event hover function
 			$("#addEvent").hover(function(){
 				$(this).css("background", "orange");
@@ -152,6 +151,14 @@
 				}
 			});
 			$( "#datepicker" ).datepicker({ autoSize: true });	
+			$("#advancedSearch").click(function(){
+				$(".advancedSearchForm").toggleClass("noDisplay");
+			});
+			$("#advancedSearch").hover(function(){
+				$(this).css("color", "orange");
+			}, function(){
+				$(this).css("color", "black");
+			});
 		});
 </script>
 </head>
@@ -201,10 +208,50 @@
 	<!-- Search bar -->
 	<div class="centered">
 
-		<form class="navbar-form navbar-center" id="searchFormBar" action='/eventItems' method="post">
+		<form class="navbar-form navbar-center searchForm" id="searchFormBar" action='/eventItems' method="post">
 			<div class="form-group">
-				<input type="text" class="form-control" id="searchFormTitle" placeholder="Search" name="searchCriteria">
+				<label class="add-title-searching" for="searchForm">Title</label>
+				<br>
+				<input type="text" class="form-control searchFormBar" id="searchFormTitle" placeholder="Search" name="searchTitle">
 			</div>
+			<p id="advancedSearch">Advanced Search </p>
+			<div class="advancedSearchForm noDisplay">
+				<label class="add-tag-searching" for="searchForm">Tags</label>
+				<br>
+				<select class="dropdowntags" multiple="multiple" class="searchForm" name="tags[]">
+					<div id="otherChoices"  class="searchForm" >
+						<optgroup label="General">
+							<option value="lecture">Lecture</option>
+							<option value="event">Event</option>
+							<option value="theme">Awareness</option>
+
+						</optgroup>
+						<optgroup label="Academic">
+							<option value="engineering">Engineering</option>
+							<option value="humanities">Humanities</option>
+							<option value="life_sciences">Life Sciences</option>
+							<option value="life_sciences">Social Sciences</option>
+						</optgroup>
+						<optgroup label="Clubs">
+							<option value="club_event">Event </option>
+							<option value="meeting">Meeting</option>
+							<option value="performance">Performance</option>
+						</optgroup>
+						<optgroup label="Individual">
+							<option value="discussion">Discussion</option>
+							<option value="individual_event">Event</option>
+							<option value="food">Food</option>
+							<option value="hangout">Hangout</option>
+							<option value="trip">Trip</option>
+						</optgroup>
+					</div>
+				</select>
+				<br>
+				<!-- <label class="add-tag-searching" for="searchForm">Date</label>
+				<br>
+				<input type="text" class=" form-control searchForm input-small" id="datepicker" name="search_date"> -->
+			</div>
+			<br>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>
@@ -271,8 +318,14 @@
 
 								<label class="add-item-modal-form-label" for="add-item-modal-form-tags">Tags</label>
 								<br>
-								<select id="example2" multiple="multiple">
-									<div id="otherChoices" name="tags[]" class="form-control add-item-modal-form-input" >
+								<select class="dropdowntags" multiple="multiple" class="searchForm" name="tags[]">
+									<div id="otherChoices"  class="searchForm" >
+										<optgroup label="General">
+											<option value="lecture">Lecture</option>
+											<option value="event">Event</option>
+											<option value="theme">Awareness</option>
+
+										</optgroup>
 										<optgroup label="Academic">
 											<option value="engineering">Engineering</option>
 											<option value="humanities">Humanities</option>
@@ -280,13 +333,13 @@
 											<option value="life_sciences">Social Sciences</option>
 										</optgroup>
 										<optgroup label="Clubs">
-											<option value="event">Event </option>
+											<option value="club_event">Event </option>
 											<option value="meeting">Meeting</option>
 											<option value="performance">Performance</option>
 										</optgroup>
 										<optgroup label="Individual">
 											<option value="discussion">Discussion</option>
-											<option value="event">Event</option>
+											<option value="individual_event">Event</option>
 											<option value="food">Food</option>
 											<option value="hangout">Hangout</option>
 											<option value="trip">Trip</option>
@@ -310,7 +363,7 @@
 								<select class="add-item-modal-form-label" name="modal_type">
 									<option>School</option>
 									<option>Club</option>
-									<option>Personal</option>
+									<option>Individual</option>
 								</select>
 								<br>
 							</div>

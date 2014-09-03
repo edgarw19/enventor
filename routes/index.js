@@ -21,15 +21,49 @@ router.get('/eventItems', function (req, res) {
 });
 
 //post register information
-router.post('/eventItems/:title', function(req, res) {
-  var searchTitle = req.body.searchCriteria;
+router.post('/eventItems', function(req, res) {
+  var selectAll = "multiselect-all";
+  var eventProperties = req.body;
+  var searchTitle = eventProperties.searchTitle;
+  var tags = [];
+  var searchTags = eventProperties.tags;
+  var tagsShouldBeSearched = false;
+  if (eventProperties.multiselect)
+  {
+    if (eventProperties.multiselect[0] != selectAll)
+    {
+      tagsShouldBeSearched = true;
+      for (var i = 0; i < searchTags.length; i++)
+      {
+        tags.push(searchTags[i].toLowerCase());
+      }
+    }
+  }
+  
+
   var isLoggedIn = false;
   if (req.user) isLoggedIn = true;
-   eventItem.find({title: searchTitle}, function(err, data) {
-    console.log(data);
-    var jsondata = JSON.stringify(data);
-    res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
-  });
+  if (tagsShouldBeSearched && searchTitle)
+  {
+    eventItem.find({title: searchTitle, tags: tags}, function(err, data) {
+      var jsondata = JSON.stringify(data);
+      res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
+    });
+  }
+  else if (tagsShouldBeSearched)
+  {
+    eventItem.find({tags: tags}, function(err, data) {
+      var jsondata = JSON.stringify(data);
+      res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
+    });
+  }
+  else
+  {
+    eventItem.find({title: searchTitle}, function(err, data) {
+      var jsondata = JSON.stringify(data);
+      res.render('eventItems', {events : jsondata, loggedIn: isLoggedIn,  matching_events: data, user : req.user });
+    });
+  }
 
 });
 
@@ -51,10 +85,9 @@ router.get('/eventList', function (req, res) {
 router.post('/addEvent', isLoggedIn, function (req, res) {
   var itemProperties = req.body;
   var tagsSearch = [];
-
-  for (var i = 0; i < itemProperties.multiselect.length; i++)
+  for (var i = 0; i < itemProperties.tags.length; i++)
   {
-    tagsSearch.push(itemProperties.multiselect[i]);
+    tagsSearch.push(itemProperties.tags[i]);
   }
 
   var newItem = new eventItem(
@@ -62,14 +95,14 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
     title: itemProperties.modal_title,
     description: itemProperties.modal_description,
     type: itemProperties.modal_type,
-    tags: itemProperties.modal_tags,
+    tags: tagsSearch,
     date: itemProperties.modal_date,
     picture: itemProperties.modal_picture,
     creator_id: req.user._id,
     time: itemProperties.modal_time,
     location: itemProperties.modal_location,
     titleSearch: itemProperties.modal_title.toLowerCase(),
-    tagsSearch: tagsSearch
+    //eventually add search for lowercase tags
   });
   console.log(newItem);
   newItem.save(function(err) {
