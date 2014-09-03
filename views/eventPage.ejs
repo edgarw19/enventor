@@ -8,12 +8,12 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/stylesheets/eventItems.css">
+    <link rel="stylesheet" href="/stylesheets/eventPage.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.css"/>
     <link rel="stylesheet" href="/stylesheets/bootstrap-multiselect.css"/>
 
     <!-- Custom Theme CSS -->
-    <link href="/stylesheets/css/grayscale.css" rel="stylesheet">
+    <!-- <link href="/stylesheets/css/grayscale.css" rel="stylesheet"> -->
     <!-- Latest necessary jquery + js files + backbone -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="/javascripts/bower_components/underscore/underscore.js"></script>
@@ -27,7 +27,39 @@
     <script src="/stylesheets/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
     <script src="/javascripts/bower_components/bootstrap-multiselect.js"></script>
 </head>
+
 <body>
+
+<!-- Navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand"><strong>EVENTUS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-right">
+                
+                <%if (loggedIn)  {%>
+                <li id="profilenav"><a href="/#">Welcome, <%= user.username %>!</a></li>
+                <li id="eventsnav"><a href="/eventItems">EVENTS</a></li>
+                <li id="profilenav"><a href="/logout">LOGOUT</a></li>
+                <%} else {  %>
+                <li id="profilenav"><a href="/register">REGISTER</a></li>
+                <li id="eventsnav"><a href="/login">LOGIN</a></li>
+                <li id="profilenav"><a href="/eventItems">EVENTS</a></li>
+                <% } %>
+
+            </ul>
+        </div>
+    </div>
+</div>
 
 <div id="startingdata" style="display:none">
 <%= event %>
@@ -38,10 +70,44 @@
 
 <!-- script template for page -->
 <script id="eventPageTemplate" type="text/x-handlebars">
-    <div>
-        {{title}}
+    <div class='right col-sm-4'>
+        <div class='title'>
+            <h1>{{title}}</h1>
+        </div>
+
+        <div class='info'>
+            <p>date</p>
+            {{date}}
+            <p>time</p>
+            {{time}}00:00PM
+            <p>location</p>
+            {{location}}Lorem ipsum yea
+        </div>
+
+        <div class='join'>
+            <button class='btn btn-success btn-large'>Join</button>
+        </div>
+    </div>
+
+    <div class='left col-sm-8'>
+        <div class='picture'><img src={{picture}}/>my dummy picture is 1 px so this is filler
+        </div>
+        <div class="description">
+            {{description}}
+        </div>
+        <br/>
+        <span>host:</span> {{creator_id}} placeholder for host
+        <hr>
+        <div class="others">
+            <span>others attending</span>
+            <br/>
+            {{attendeeNames}}
+        </div>
     </div>
 </script>
 
 </body>
 </html>
+
+
+

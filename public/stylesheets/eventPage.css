@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* "wrapper" is the start of the content */
+.wrapper {
+    margin-top: 51px;
+}
+
+.right .title {
+    padding-top: 35%;
+    padding-bottom: 25%;
+    text-align: center;
+}
+
+.right .info {
+    width: 60%;
+    margin-left: 50%;
+    margin-bottom: 10px;
+
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+    font-size: 13pt;
+}
+
+.right .info p {
+    font-size: 14pt;
+    font-variant: small-caps;
+    color: gray;
+
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.right .join {
+    margin-top: 40px;
+    
+    width: 100%;
+    text-align: center;
+}
+
+.left {
+    margin-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.left .picture {
+    background: pink;
+    text-align: center;
+
+    min-height: 130px;
+}
+
+.left .description {
+    margin-top: 50px;
+}
+
+.left hr {
+    border-width: 10px;
+    width: 30%;
+    border-color: silver;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.left span {
+    font-size: 14pt;
+    font-variant: small-caps;
+    color: gray;
+}
