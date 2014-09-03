@@ -36,7 +36,6 @@ router.post('/eventItems/:title', function(req, res) {
 
 
 
-
 //backbone URL to get event items
 router.get('/eventList', function (req, res) {
 	eventItem.find(function(err, data) {
@@ -84,7 +83,18 @@ router.post('/addEvent', isLoggedIn, function (req, res) {
 
 
 
+// for individual event pages
+router.get('/event/:id', function(req, res){
+  var id = req.params.id;
+  // json of event with given id
+  eventItem.find({_id: id}, function(err, data) {
+    var jsondata = JSON.stringify(data);
+    if (jsondata == undefined) res.send("404");
 
+    // legit event id
+    res.render("eventPage", {event: jsondata});
+  });
+});
 
 
 

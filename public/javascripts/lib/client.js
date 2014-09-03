@@ -36,8 +36,19 @@ var modalView = Backbone.View.extend({
 		return this;
 	}
 });
-
-
+ 
+// for individual page
+var eventPageView = Backbone.View.extend({
+	tagName: "div",
+	className: "wrapper",
+	render: function(){
+		var template = $("#eventPageTemplate").html();
+		var compiled = Handlebars.compile(template);
+		var html = compiled(this.model.attributes);
+		this.$el.html(html);
+		return this;
+	},
+});
 
 var eventCollectionView = Backbone.View.extend({
 	initialize: function() {
@@ -47,7 +58,11 @@ var eventCollectionView = Backbone.View.extend({
 	className: "events",
 	render: function(){
 		this.collection.each(function(eventItem) {
-			var view = new eventView({model: eventItem});
+			var path = window.location.pathname;
+			if (path.substr(0, 6) === '/event')
+				var view = new eventPageView({model: eventItem});
+			else
+				var view = new eventView({model: eventItem});
 			this.$el.append(view.render().el);
 
 		}, this);//defines scope
@@ -55,13 +70,14 @@ var eventCollectionView = Backbone.View.extend({
 	}
 });
 
+
 var AppRouter = Backbone.Router.extend({
 	initialize: function(){
 		this._setupCollection();
 	},
 	routes: {
 		"*eventItems" : "eventItems",
-		"*eventItems/:title": "eventItems",
+		"*eventItems/:title": "eventItems"
 	},
 	_setupCollection: function(){
 		if(this.collection) return;
@@ -72,7 +88,6 @@ var AppRouter = Backbone.Router.extend({
 		$("#initialContent").html(view.render().el);
 	},
 	eventItems : function() {
-
 		//collection.fetch({ reset: true}); maybe try without resetting
 		var view = new eventCollectionView({collection: this.collection});
 		this._renderView(view);
